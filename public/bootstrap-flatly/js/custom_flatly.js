@@ -18,7 +18,7 @@
     $('.bs-component [data-toggle="tooltip"]').tooltip();
     $('.bs-component').each(function () {
         var $button = $('<button class="source-button btn btn-primary btn-xs" role="button" tabindex="0">&lt; ikke &gt;</button>');
-        console.log('test');
+        // console.log('test');
         $(this).append($button);
     });
 

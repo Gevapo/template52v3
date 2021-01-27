@@ -10,8 +10,8 @@ Requirements
 * PHP 7.4.9 or higher;
 * PDO-SQLite PHP extension enabled;
 * and the [usual Symfony application requirements][2]
-* node v14.15.4
-* yarn v1.22.5
+* ~~node v14.15.4~~
+* ~~yarn v1.22.5~~
 
 Incuded
 -------
