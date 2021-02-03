@@ -30,9 +30,10 @@ class ProductOptionChoice
     private string $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ProductOption::class, inversedBy="productOptionChoices")
+     * een ProductOptionChoice heeft een ProductOption, een ProductOption kan tot meerdere ProductOptionChoices behoren
+     * @ORM\ManyToOne(targetEntity="ProductOption", inversedBy="productOptionChoices")
      */
-    private ProductOption $productoption;
+    private $productoption;
 
     /**
      * @ORM\Column(type="datetime")
@@ -103,12 +104,12 @@ class ProductOptionChoice
         return $this;
     }
 
-    public function getProductoption(): ?ProductOption
+    public function getProductoption()
     {
         return $this->productoption;
     }
 
-    public function setProductoption(?ProductOption $productoption): self
+    public function setProductoption($productoption): self
     {
         $this->productoption = $productoption;
 

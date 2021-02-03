@@ -42,26 +42,18 @@ class ProductOption
     private DateTimeInterface $updatedAt;
 
     /**
+     * een ProductOptionChoice heeft een ProductOption, een ProductOption kan tot meerdere ProductOptionChoices behoren
      * @ORM\OneToMany(targetEntity=ProductOptionChoice::class, mappedBy="productoption")
      */
-    private ArrayCollection $productOptionChoices;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="productoptions")
-     */
-    private ArrayCollection $products;
+    private $productOptionChoices;
 
     public function __construct()
     {
         $this->productOptionChoices = new ArrayCollection();
-        $this->products = new ArrayCollection();
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt(new DateTime());
     }
 
-    /**
-     * @return string|null
-     */
     public function __toString(): ?string
     {
         return $this->getName();
@@ -136,10 +128,7 @@ class ProductOption
         return $this;
     }
 
-    /**
-     * @return Collection|ProductOptionChoice[]
-     */
-    public function getProductOptionChoices(): Collection
+    public function getProductOptionChoices()
     {
         return $this->productOptionChoices;
     }
@@ -161,33 +150,6 @@ class ProductOption
             if ($productOptionChoice->getProductoption() === $this) {
                 $productOptionChoice->setProductoption(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addProductoption($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            $product->removeProductoption($this);
         }
 
         return $this;
