@@ -41,10 +41,16 @@ class Product
      */
     private DateTimeInterface $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ProductOption::class, inversedBy="products")
+     */
+    private $productoptions;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt(new DateTime());
+        $this->productoptions = new ArrayCollection();
     }
 
     /**
@@ -120,6 +126,32 @@ class Product
     public function setUpdatedAt(DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductOption[]
+     */
+    public function getProductoptions(): Collection
+    {
+        return $this->productoptions;
+    }
+
+    public function addProductoption(ProductOption $productoption): self
+    {
+        if (!$this->productoptions->contains($productoption)) {
+            $this->productoptions[] = $productoption;
+        }
+
+        return $this;
+    }
+
+    public function removeProductoption(ProductOption $productoption): self
+    {
+        if ($this->productoptions->contains($productoption)) {
+            $this->productoptions->removeElement($productoption);
+        }
 
         return $this;
     }
