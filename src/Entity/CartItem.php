@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CartItemRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,9 +37,22 @@ class CartItem
      */
     private $cartOptions;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
 
     public function __construct(Product $product)
     {
+        $this->setCreatedAt(new DateTime());
+        $this->setUpdatedAt(new DateTime());
+
         /*
          * Omdat het gedrag van een CartItem afhankelijk is van de Product entity
          * heb ik er voor gekozen om het Product aan de constructor mee te geven
@@ -55,6 +70,22 @@ class CartItem
             $this->addCartOption(new CartOption($option));
         }
         
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setCreatedAtValue()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->setUpdatedAt(new DateTime());
     }
 
     public function getId(): ?int
@@ -112,6 +143,30 @@ class CartItem
                 $cartOption->setCartItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
