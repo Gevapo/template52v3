@@ -52,12 +52,18 @@ class ProductOption
      */
     private $products;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartOption::class, mappedBy="productOption")
+     */
+    private $cartOptions;
+
     public function __construct()
     {
         $this->productOptionChoices = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt(new DateTime());
+        $this->cartOptions = new ArrayCollection();
     }
 
     public function __toString(): ?string
@@ -184,6 +190,36 @@ class ProductOption
         if ($this->products->removeElement($product)) {
             $this->products->removeElement($product);
             $product->removeProductoption($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CartOption[]
+     */
+    public function getCartOptions(): Collection
+    {
+        return $this->cartOptions;
+    }
+
+    public function addCartOption(CartOption $cartOption): self
+    {
+        if (!$this->cartOptions->contains($cartOption)) {
+            $this->cartOptions[] = $cartOption;
+            $cartOption->setProductOption($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartOption(CartOption $cartOption): self
+    {
+        if ($this->cartOptions->removeElement($cartOption)) {
+            // set the owning side to null (unless already changed)
+            if ($cartOption->getProductOption() === $this) {
+                $cartOption->setProductOption(null);
+            }
         }
 
         return $this;

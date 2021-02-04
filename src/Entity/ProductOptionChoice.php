@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ProductOptionChoiceRepository;
 use DateTime;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,10 +47,16 @@ class ProductOptionChoice
      */
     private DateTimeInterface $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartOption::class, mappedBy="productOptionChoice")
+     */
+    private $cartOptions;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt(new DateTime());
+        $this->cartOptions = new ArrayCollection();
     }
 
     /**
@@ -136,6 +144,36 @@ class ProductOptionChoice
     public function setUpdatedAt(DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CartOption[]
+     */
+    public function getCartOptions(): Collection
+    {
+        return $this->cartOptions;
+    }
+
+    public function addCartOption(CartOption $cartOption): self
+    {
+        if (!$this->cartOptions->contains($cartOption)) {
+            $this->cartOptions[] = $cartOption;
+            $cartOption->setProductOptionChoice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartOption(CartOption $cartOption): self
+    {
+        if ($this->cartOptions->removeElement($cartOption)) {
+            // set the owning side to null (unless already changed)
+            if ($cartOption->getProductOptionChoice() === $this) {
+                $cartOption->setProductOptionChoice(null);
+            }
+        }
 
         return $this;
     }
