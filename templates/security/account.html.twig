@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Account{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center">Account </h1>
+
+    <form class="form-signin" method="post">
+        <fieldset>
+            <legend class="text-center">Update your account with your name</legend>
+
+{#            {% if error %}#}
+{#                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+{#            {% endif %}#}
+
+            {% if app.user %}
+                <div class="mb-3 text-center">
+                    You are logged in as {{ app.user.username }}
+                </div>
+                <div class="mb-3 text-center">
+                    <a class="btn btn-outline-primary" href="{{ path('logout') }}">Sign out</a>
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="inputFirstName" class="">First Name</label>
+                <input type="text" value="{{ app.user.firstName }}" name="firstName" id="inputFirstName" class="form-control" placeholder="First Name" autofocus>
+            </div>
+
+        </fieldset>
+
+        <div class="gvp-vert-sp-2"></div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Update account</button>
+
+    </form>
+
+{% endblock %}

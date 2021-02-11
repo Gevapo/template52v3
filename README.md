@@ -19,7 +19,9 @@ Incuded
 * [Symfony v5.2.1][4]
 * [jQuery v3.5.1][7]
 * [Bootstrap v4.6.0][5]
+* Bootstrap icons 1.3.0
 * [Theme bootswatch Flatly][6]
+* Font-awesome 5.12.1
 
 ToDo: Installation
 ------------------

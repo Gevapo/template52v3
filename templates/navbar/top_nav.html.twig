@@ -5,56 +5,73 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Theme Flatly <span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="themes">
-                        <a class="dropdown-item" href="../default/">Default</a>
+                        <a class="dropdown-item" href="#">Default</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../cerulean/">Cerulean</a>
-                        <a class="dropdown-item" href="../cosmo/">Cosmo</a>
-                        <a class="dropdown-item" href="../cyborg/">Cyborg</a>
-                        <a class="dropdown-item" href="../darkly/">Darkly</a>
-                        <a class="dropdown-item" href="../flatly/">Flatly</a>
-                        <a class="dropdown-item" href="../journal/">Journal</a>
-                        <a class="dropdown-item" href="../litera/">Litera</a>
-                        <a class="dropdown-item" href="../lumen/">Lumen</a>
-                        <a class="dropdown-item" href="../lux/">Lux</a>
-                        <a class="dropdown-item" href="../materia/">Materia</a>
-                        <a class="dropdown-item" href="../minty/">Minty</a>
-                        <a class="dropdown-item" href="../pulse/">Pulse</a>
-                        <a class="dropdown-item" href="../sandstone/">Sandstone</a>
-                        <a class="dropdown-item" href="../simplex/">Simplex</a>
-                        <a class="dropdown-item" href="../sketchy/">Sketchy</a>
-                        <a class="dropdown-item" href="../slate/">Slate</a>
-                        <a class="dropdown-item" href="../solar/">Solar</a>
-                        <a class="dropdown-item" href="../spacelab/">Spacelab</a>
-                        <a class="dropdown-item" href="../superhero/">Superhero</a>
-                        <a class="dropdown-item" href="../united/">United</a>
-                        <a class="dropdown-item" href="../yeti/">Yeti</a>
+                        <a class="dropdown-item" href="#">Cerulean</a>
+                        <a class="dropdown-item" href="#">Cosmo</a>
+                        <a class="dropdown-item" href="#">Cyborg</a>
+                        <a class="dropdown-item" href="#">Darkly</a>
+                        <a class="dropdown-item" href="#">Flatly</a>
+                        <a class="dropdown-item" href="#">Journal</a>
+                        <a class="dropdown-item" href="#">Litera</a>
+                        <a class="dropdown-item" href="#">Lumen</a>
+                        <a class="dropdown-item" href="#">Lux</a>
+                        <a class="dropdown-item" href="#">Materia</a>
+                        <a class="dropdown-item" href="#">Minty</a>
+                        <a class="dropdown-item" href="#">Pulse</a>
+                        <a class="dropdown-item" href="#">Sandstone</a>
+                        <a class="dropdown-item" href="#">Simplex</a>
+                        <a class="dropdown-item" href="#">Sketchy</a>
+                        <a class="dropdown-item" href="#">Slate</a>
+                        <a class="dropdown-item" href="#">Solar</a>
+                        <a class="dropdown-item" href="#">Spacelab</a>
+                        <a class="dropdown-item" href="#">Superhero</a>
+                        <a class="dropdown-item" href="#">United</a>
+                        <a class="dropdown-item" href="#">Yeti</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Help</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://blog.bootswatch.com/" target="_blank">Blog</a>
-                </li>
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="#">Help</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="https://blog.bootswatch.com/" target="_blank">Blog</a>#}
+{#                </li>#}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('bootswatch') }}">Theme Flatly</a>
                 </li>
-{#                <li class="nav-item dropdown">#}
-{#                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="download">Flatly <span class="caret"></span></a>#}
-{#                    <div class="dropdown-menu" aria-labelledby="download">#}
-{#                        <a class="dropdown-item" rel="noopener" target="_blank" href="https://jsfiddle.net/bootswatch/jmg3gykg/">Open in JSFiddle</a>#}
-{#                        <div class="dropdown-divider"></div>#}
-{#                            <a class="dropdown-item" href="#" download>bootstrap.min.css</a>#}
-{#                        <a class="dropdown-item" href="#" download>bootstrap.css</a>#}
-{#                        <div class="dropdown-divider"></div>#}
-{#                        <a class="dropdown-item" href="#" download>_variables.scss</a>#}
-{#                        <a class="dropdown-item" href="#" download>_bootswatch.scss</a>#}
-{#                    </div>#}
-{#                </li>#}
+            </ul>
+                <ul class="navbar-nav ml-auto">
+                {% if is_granted('ROLE_USER') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="account">{% if app.user.firstName %}{{ app.user.firstName }}{% else %}{{ app.user.email }}{% endif %} <span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="account">
+                            <a class="dropdown-item" href="{{ path('account') }}">Mijn account</a>
+                            <a class="dropdown-item" href="#">Mijn offertes</a>
+                            <a class="dropdown-item" href="#">Mijn bestellingen</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Admin</a>
+                            {% endif %}
+{#                    <li class="nav-item">#}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('logout') }}">Sign out</a>
+{#                    </li>#}
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('login') }}">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-primary active" role="button" href="{{ path('register') }}" style="border-color: #FFF;">Sign up</a>
+{#                        <button class="nav-link btn btn-outline-primary" type="button"><a href="{{ path('register') }}">Sign up</a></button>#}
+{#                        <button type="button" class="btn btn-outline-primary active">Primary</button>#}
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

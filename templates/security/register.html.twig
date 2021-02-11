@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center">Join Template52</h1>
+
+    <form class="form-signin" method="post">
+        <fieldset>
+            <legend>Maak uw account</legend>
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Email address" required autofocus>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="_remember_me" class="custom-control-input" id="inputRememberMe" required>
+                <label class="custom-control-label" for="inputRememberMe"> Agree to terms I for sure read</label>
+            </div>
+
+        </fieldset>
+
+        <div class="gvp-vert-sp-2"></div>
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Maak uw account</button>
+    </form>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# <link rel="stylesheet" href="{{ asset('css/login.css') }}"> #}
+{% endblock %}

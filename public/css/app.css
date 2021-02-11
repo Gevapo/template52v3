@@ -1,0 +1,26 @@
+.gvp-vert-sp-1 {
+    height: 1em;
+}
+.gvp-vert-sp-2 {
+     height: 2em;
+ }
+.gvp-vert-sp-3 {
+    height: 3em;
+}
+.gvp-vert-sp-4 {
+    height: 4em;
+}
+.gvp-vert-sp-5 {
+    height: 5em;
+}
+.gvp-vert-sp-6 {
+    height: 6em;
+}
+/* sticky footer */
+footer {
+    /*background-color: #efefee;*/
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+}
