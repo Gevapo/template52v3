@@ -9,8 +9,12 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\ProductOption;
 use App\Entity\ProductOptionChoice;
+use App\Entity\User;
+use App\Service\Mailer;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -30,6 +34,26 @@ class HomeController extends AbstractController
     public function bootswatch()
     {
         return $this->render('home/bootswatch.html.twig');
+    }
+
+    /**
+     * @Route("/testmail", name="testmail")
+     * @param Request $request
+     * @param Mailer $mailer
+     * @return Response
+     * @throws TransportExceptionInterface
+     */
+    public function sendTestMessage(Request $request, Mailer $mailer): Response
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+            'firstName' => $this->getUser()->getFirstName(),
+        ]);
+
+        $mailer->sendTestMessage($user);
+
+        $this->addFlash('success', 'Test message mailed.');
+
+        return $this->render('home/homepage.html.twig');
     }
 
     /**
