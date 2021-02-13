@@ -28,6 +28,22 @@
                     </div>
                 {% endif %}
 
+                {% for message in app.flashes('success') %}
+{#                    <div class="container">#}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+{#                    </div>#}
+                {% endfor %}
+
+                {% for message in app.flashes('verify_email_error') %}
+{#                    <div class="container">#}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+{#                    </div>#}
+                {% endfor %}
+
                 {% block body %}{% endblock %}
             </div>
         </div>

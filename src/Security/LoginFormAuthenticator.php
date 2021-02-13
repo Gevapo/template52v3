@@ -105,7 +105,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * Redirecting Back on login Success
      *
-     *
      * @param Request $request
      * @param TokenInterface $token
      * @param string $providerKey

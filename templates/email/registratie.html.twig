@@ -1,0 +1,57 @@
+{% extends 'email/emailBase.html.twig' %}
+
+{% block content %}
+
+    <row class="welcome">
+        <columns>
+            <spacer size="35"></spacer>
+            <h1>
+                <center>
+                    Nice to meet you {{ email.toName | raw }}!
+                </center>
+            </h1>
+            <spacer size="10"></spacer>
+        </columns>
+    </row>
+
+    <spacer size="20"></spacer>
+
+    <row>
+
+        <columns>
+            <p>
+                Klik op onderstaande knop om uw registratie te bevestigen!
+            </p>
+        </columns>
+    </row>
+
+    <row>
+        <columns>
+            <center>
+                <button href="{{ signedUrl }}">Bevestigen</button>
+            </center>
+        </columns>
+    </row>
+
+    <row>
+        <columns>
+            <p>
+                {{ signedUrl }}
+            </p>
+        </columns>
+    </row>
+
+    <row>
+        <columns>
+            <center>
+                <button href="{{ url('homepage') }}">Ontdek de Template52 site!</button>
+            </center>
+        </columns>
+    </row>
+
+    <hr>
+
+    <spacer size="10"></spacer>
+
+
+{% endblock %}

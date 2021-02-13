@@ -444,6 +444,9 @@
     "symfony/yaml": {
         "version": "v5.2.1"
     },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.2.0"
+    },
     "tijsverkoyen/css-to-inline-styles": {
         "version": "2.2.3"
     },

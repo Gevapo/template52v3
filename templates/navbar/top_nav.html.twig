@@ -45,7 +45,7 @@
                 </li>
             </ul>
                 <ul class="navbar-nav ml-auto">
-                {% if is_granted('ROLE_USER') %}
+                {% if is_granted('ROLE_VERIFIED') %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="account">{% if app.user.firstName %}{{ app.user.firstName }}{% else %}{{ app.user.email }}{% endif %} <span class="caret"></span></a>
                         <div class="dropdown-menu" aria-labelledby="account">
