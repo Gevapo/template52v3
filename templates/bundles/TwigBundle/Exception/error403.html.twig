@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pagina niet gevonden{% endblock %}
+
+{% block body %}
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12"><div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>U hebt geen toegang of deze pagina werd niet gevonden!</div>
+{#                <h3 class="">U hebt geen toegang of deze pagina werd niet gevonden!</h3>#}
+{#                <div class="col-md-2 no-pad">#}
+{#                    <div>#}
+{#                        <img src="https://robohash.org/{{ app.user.email }}" class="rounded mx-auto d-block" width="100px">#}
+{#                    </div>#}
+{#                </div>#}
+                <div class="gvp-vert-sp-2"></div>
+                <div class="text-center">
+                    <img src="https://robohash.org/{{ app.user.email }}" class="rounded" alt="robo" width="100px">
+                </div>
+                <div class="gvp-vert-sp-2"></div>
+                <p>
+                    Controleer op spellingsfouten of <a href="{{ path('homepage') }}">ga terug naar de startpagina</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

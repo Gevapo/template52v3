@@ -1,0 +1,62 @@
+{% extends 'email/emailBase.html.twig' %}
+
+{% block content %}
+
+    <row class="welcome">
+        <columns>
+            <spacer size="35"></spacer>
+            <h1>
+                <center>
+{#                    Dag {{ email. | raw }},#}
+                    Welkom!
+                </center>
+            </h1>
+            <spacer size="10"></spacer>
+        </columns>
+    </row>
+
+    <spacer size="20"></spacer>
+
+    <row>
+
+        <columns>
+            <p>
+                Bedankt voor je registratie. Bevestig alleen nog je e-mailadres om je login te activeren. Je login geeft je toegang tot alle voordelen
+            </p>
+        </columns>
+    </row>
+
+    <row>
+        <columns>
+            <center>
+                <button href="{{ signedUrl }}">Bevestigen</button>
+            </center>
+        </columns>
+    </row>
+
+    <row>
+        <columns>
+            <small>
+                Werkt de knop hierboven niet? Kopieer dan het webadres in je internetbrowser: op gsm door je vinger op de knop te houden, op desktop via de rechtermuisknop
+            </small>
+        </columns>
+    </row>
+
+    <row class="small">
+        <columns>
+            <small>
+{#                vandaag twig site {{ "now"|date("j F Y, H:i") }}<br>#}
+{#                vandaag template {{ "now"|date("j F Y, H:i") }}<br>#}
+{#                expiresAt {{ expiresAt | date("j F Y, H:i") }}<br>#}
+{#                expirationMessageData {{ expirationMessageData | join(' | ') }}<br>#}
+                Deze link vervalt in {{ expiresAtIntervalInstance | date("%h:%I")}} uur<br>
+{#                Deze link vervalt in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.<br>#}
+            </small>
+        </columns>
+    </row>
+
+
+
+
+
+{% endblock %}

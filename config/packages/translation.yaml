@@ -1,6 +1,5 @@
 framework:
-    default_locale: nl_be
+    default_locale: nl_be # voor o.a. error messages
     translator:
         default_path: '%kernel.project_dir%/translations'
-        fallbacks:
-            - nl_be
+        fallbacks: ['en']

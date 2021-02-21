@@ -1,45 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sign In{% endblock %}
+{% block title %}Aanmelden{% endblock %}
 
 {% block body %}
 
-    <h1 class="text-center">Sign in </h1>
+    {% if error %}
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
 
-    <form class="form-signin" method="post">
+        <div class="gvp-vert-sp-1"></div>
+    {% endif %}
+
+    <h1 class="text-center">Aanmelden</h1>
+
+    <form class="form-signin" method="post" novalidate>
         <fieldset>
-            <legend>Please sign in</legend>
-
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+{#            <legend>Aanmelden</legend>#}
 
             {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Sign out</a>
+                <div class="mb-3 text-center">
+                    U bent ingelogd als {{ app.user.username }}, <br><a href="{{ path('logout') }}">Afmelden</a>
                 </div>
             {% endif %}
 
             <div class="form-group">
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <label for="inputEmail" class="sr-only">Email adres</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email adres" required autofocus>
             </div>
 
             <div class="form-group">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <label for="inputPassword" class="sr-only">Wachtwoord</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Wachtwoord" required>
+            </div>
+
+            <div class="form-group text-right small">
+            <a href="{{ path('forgot_password_request') }}">Wachtwoord vergeten?</a>
             </div>
 
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" id="inputLogin" name="_remember_me" class="custom-control-input" checked/>
-                <label class="custom-control-label" for="inputLogin">Keep me logged in</label>
+                <label class="custom-control-label" for="inputLogin">Aangemeld blijven</label>
             </div>
+
+            <div class="gvp-vert-sp-1"></div>
+
+            <p class="small">Door verder te gaan verklaar je de <a href="#">privacyverklaring Template52</a> te hebben gelezen.</p>
 
         </fieldset>
 
-        <div class="gvp-vert-sp-2"></div>
+        <div class="gvp-vert-sp-1"></div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Aanmelden</button>
+        <div class="gvp-vert-sp-2"></div>
+        <a href="{{ path('register') }}" class="btn btn-lg btn-outline-primary btn-block">Nog geen profiel?</a>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     </form>

@@ -5,23 +5,35 @@
 %}
 <container>
 
-    <row class="header">
+{#    <row class="header">#}
+        <row>
         <columns>
             <center>
-                <a href="#">
+{#                <a href="#">#}
                     <img src="{{ email.image('@images/Wallace-482x298.jpg') }}" class="logo" alt="The Template52" >
-                </a>
+{#                </a>#}
             </center>
         </columns>
     </row>
 
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
+
+    <hr>
+
+    <spacer size="10"></spacer>
+
+    <row>
+        <columns>
+            <center>
+                <button href="{{ url('homepage') }}">Ontdek de Template52 site!</button>
+            </center>
+        </columns>
+    </row>
 
     <row class="footer">
         <columns>
-            <p>Cheers,</p>
-            <p>Your friendly <em>Template52 Team</em></p>
+            <p>Met vriendelijke groeten,</p>
+            <p>Het <em>Template52 Team</em></p>
         </columns>
     </row>
 
@@ -32,7 +44,7 @@
             <center>
                 <spacer size="20"></spacer>
                 <div>
-                    Sent with ❤️ from the friendly folks at The Template52
+                    Verzonden met ❤️ door het Template52 Team.
                 </div>
             </center>
         </columns>

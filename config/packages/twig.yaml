@@ -4,3 +4,10 @@ twig:
         'public/images': images
         'public/css': styles
         'public/bootstrap-flatly/css': bootstrap-flatly
+    date:
+        format: 'j F Y, H:i'
+        timezone: 'Europe/Brussels'
+    number_format:
+        decimals: 0
+        decimal_point: ','
+        thousands_separator: '.'

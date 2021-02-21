@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User
@@ -24,6 +27,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="geert: email mag niet leeg zijn!")
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
@@ -43,14 +50,35 @@ class User implements UserInterface
     protected $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $firstName;
+    private $firstName = '';
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="geert: wachtwoord mag niet leeg zijn!")
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $naam;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private $aanspreektitel;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $telefoon;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Adres::class, mappedBy="user")
+     */
+    private $adressen;
 
     /**
      * User constructor.
@@ -59,6 +87,7 @@ class User implements UserInterface
     {
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt(new DateTime());
+        $this->adressen = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,6 +230,72 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getNaam(): ?string
+    {
+        return $this->naam;
+    }
+
+    public function setNaam(?string $naam): self
+    {
+        $this->naam = $naam;
+
+        return $this;
+    }
+
+    public function getAanspreektitel(): ?string
+    {
+        return $this->aanspreektitel;
+    }
+
+    public function setAanspreektitel(string $aanspreektitel): self
+    {
+        $this->aanspreektitel = $aanspreektitel;
+
+        return $this;
+    }
+
+    public function getTelefoon(): ?string
+    {
+        return $this->telefoon;
+    }
+
+    public function setTelefoon(?string $telefoon): self
+    {
+        $this->telefoon = $telefoon;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Adres[]
+     */
+    public function getAdressen(): Collection
+    {
+        return $this->adressen;
+    }
+
+    public function addAdressen(Adres $adressen): self
+    {
+        if (!$this->adressen->contains($adressen)) {
+            $this->adressen[] = $adressen;
+            $adressen->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdressen(Adres $adressen): self
+    {
+        if ($this->adressen->removeElement($adressen)) {
+            // set the owning side to null (unless already changed)
+            if ($adressen->getUser() === $this) {
+                $adressen->setUser(null);
+            }
+        }
 
         return $this;
     }

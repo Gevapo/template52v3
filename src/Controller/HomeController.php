@@ -11,6 +11,7 @@ use App\Entity\ProductOption;
 use App\Entity\ProductOptionChoice;
 use App\Entity\User;
 use App\Service\Mailer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,6 +43,7 @@ class HomeController extends AbstractController
      * @param Mailer $mailer
      * @return Response
      * @throws TransportExceptionInterface
+     * @IsGranted("ROLE_ADMIN")
      */
     public function sendTestMessage(Request $request, Mailer $mailer): Response
     {
@@ -58,6 +60,7 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/testdata", name="testdata")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function testdata(): Response
     {

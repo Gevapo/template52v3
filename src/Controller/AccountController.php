@@ -14,24 +14,25 @@ use Psr\Log\LoggerInterface;
 /**
  * Class AccountController
  * @package App\Controller
- * @IsGranted("ROLE_USER")
+ * @Route("/profiel")
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class AccountController extends AbstractController
 {
-    /**
-     * @Route("/account_index", name="account_index")
-     * @param LoggerInterface $logger
-     * @return Response
-     */
-    public function index(LoggerInterface $logger): Response
-    {
-        $logger->debug('Checking account page for '.$this->getUser()->getEmail());
+//    /**
+//     * @Route("/index", name="profiel_index")
+//     * @param LoggerInterface $logger
+//     * @return Response
+//     */
+//    public function index(LoggerInterface $logger): Response
+//    {
+//        $logger->debug('Checking account page for '.$this->getUser()->getEmail());
+//
+//        return $this->render('security/index.html.twig', []);
+//    }
 
-        return $this->render('security/index.html.twig', []);
-    }
-
     /**
-     * @Route("/account", name="account")
+     * @Route("/edit", name="profiel_edit")
      * @param Request $request
      * @return Response
      */
@@ -49,7 +50,8 @@ class AccountController extends AbstractController
 
             $em->persist($user);
             $em->flush();
+            $this->addFlash('success', 'De wijzigingen werden bewaard.');
         }
-        return $this->render('security/account.html.twig', []);
+        return $this->render('profiel/profiel.html.twig', []);
     }
 }

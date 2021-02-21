@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wachtwoord Vergeten?{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center">Wachtwoord vergeten?</h1>
+
+    <div class="gvp-vert-sp-1"></div>
+
+    <div class="text-center">
+        Vul je e-mailadres in en je ontvangt een link waarmee je een nieuw wachtwoord kan instellen.
+    </div>
+
+    {% for flashError in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+{#    <form class="form-signin" method="post" name="reset_password_request_form">#}
+
+{#    <fieldset>#}
+
+        {% if app.user %}
+            <div class="mb-3 text-center">
+                U bent ingelogd als {{ app.user.username }}, <br><a href="{{ path('logout') }}">Afmelden</a>
+            </div>
+
+            <div class="gvp-vert-sp-1"></div>
+        {% endif %}
+
+        <div class="gvp-vert-sp-1"></div>
+
+        {{ form_start(requestForm, {'attr': {'class': 'form-signin', 'spellcheck': 'false'}}) }}
+{#         {{ form_row(requestForm.email) }};#}
+            <div class="form-group"> {# {% if not requestForm.email.vars.valid %} is-invalid{% endif %} #}
+
+                {{ form_label(requestForm.email, 'Email adres', {'label_attr': {'class': 'sr-only form-control-label', 'for': 'inputInvalid'}}) }}
+
+                {% if not requestForm.email.vars.valid %}
+                    {{ form_widget(requestForm.email, {'attr': {'class': 'form-control is-invalid', 'id': 'inputInvalid', 'required': '', 'autofocus': '', 'placeholder': 'Email' }}) }}
+                    <div class="invalid-feedback text-right">
+                        {{ errors }}
+                    </div>
+                {% else %}
+                    {{ form_widget(requestForm.email, {'attr': {'class': 'form-control', 'id': 'inputInvalid', 'required': '', 'autofocus': '', 'placeholder': 'Emailadres' }}) }}
+                    <small>
+                        {{ form_help(requestForm.email) }}
+                    </small>
+                {% endif %}
+
+{#                {% if not requestForm.email.vars.valid %}#}
+{#                    #}
+{#                {% endif %}#}
+{#                <div class="invalid-feedback">#}
+{#                    {{ form_errors(requestForm.email) }} #}{##}{# , {'attr': {'class': 'invalid-feedback'}} #}
+{#                    {{ errors }}#}
+{#                </div>#}
+            </div>
+
+{#            <div class="form-group has-danger">#}
+{#                <label class="form-control-label" for="inputInvalid">Invalid input</label>#}
+{#                <input type="text" value="wrong value" class="form-control is-invalid" id="inputInvalid">#}
+{#                <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>#}
+{#            </div>#}
+
+{#        <div class="form-group">#}
+{#            <label for="reset_password" class="sr-only">Email adres</label>#}
+{#            <input {% if app.user %}value={{ app.user.email }}{% endif %} type="email" id="reset_password" name="reset_password_request_form[email]" class="form-control" placeholder="man Email adres" required autofocus>#}
+{#        </div>#}
+
+        <div class="gvp-vert-sp-1"></div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Nieuw wachtwoord aanvragen</button>
+
+    {#    {{ form_rest(requestForm) }}#}
+
+        {{ form_widget(requestForm, {'attr': {'class': 'hidden'}}) }}
+    {#    {{ form_widget(requestForm) }}#}
+        {{ form_end(requestForm) }}
+
+{#    </fieldset>#}
+
+{#    </form>#}
+{% endblock %}
