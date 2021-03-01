@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adressoort{% endblock %}
+
+{% block body %}
+    <h1>Adressoort</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adressoort.id }}</td>
+            </tr>
+            <tr>
+                <th>Naam</th>
+                <td>{{ adressoort.naam }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ adressoort.createdAt ? adressoort.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ adressoort.updatedAt ? adressoort.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('adressoort_index') }}">back to list</a>
+
+    <a href="{{ path('adressoort_edit', {'id': adressoort.id}) }}">edit</a>
+
+    {{ include('adressoort/_delete_form.html.twig') }}
+{% endblock %}
