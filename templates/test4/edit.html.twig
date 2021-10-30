@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Test4{% endblock %}
+
+{% block body %}
+
+    {% include 'flash/flash.html.twig' %}
+
+    <div class="container">
+        <div class="bs-docs-section clearfix">
+
+            <div class="row">
+                <div class=" col-12">
+
+                    <h1 class="mt-3 mb-4">Edit Test4</h1>
+
+                    {{ include('test4/_form.html.twig', {'button_label': 'Update'}) }}
+
+                    <a href="{{ path('test4_index') }}">back to list</a>
+
+                    {{ include('test4/_delete_form.html.twig') }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

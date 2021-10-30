@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test4 index{% endblock %}
+
+{% block body %}
+
+{% include 'flash/flash.html.twig' %}
+
+    <div class="container">
+        <div class="bs-docs-section clearfix">
+
+            <div class="row">
+                <div class=" col-12">
+
+                <h1 class="mt-3 mb-4">Test4 index</h1>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Naam</th>
+                                <th>Nummer</th>
+                                <th>actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for test4 in test4s %}
+                            <tr>
+                                <td>{{ test4.id }}</td>
+                                <td>{{ test4.naam }}</td>
+                                <td>{{ test4.nummer }}</td>
+                                <td>
+                                    <a href="{{ path('test4_show', {'id': test4.id}) }}">show</a>
+                                    <a href="{{ path('test4_edit', {'id': test4.id}) }}">edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <a href="{{ path('test4_new') }}">Create new</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

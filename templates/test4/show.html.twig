@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test4{% endblock %}
+
+{% block body %}
+    <h1>Test4</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ test4.id }}</td>
+            </tr>
+            <tr>
+                <th>Naam</th>
+                <td>{{ test4.naam }}</td>
+            </tr>
+            <tr>
+                <th>Nummer</th>
+                <td>{{ test4.nummer }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('test4_index') }}">back to list</a>
+
+    <a href="{{ path('test4_edit', {'id': test4.id}) }}">edit</a>
+
+    {{ include('test4/_delete_form.html.twig') }}
+{% endblock %}
