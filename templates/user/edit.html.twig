@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} | ADMIN wijzig {{ user.fullName }}{% endblock %}
+{% block title %} | Wijzig {{ user.fullName }}{% endblock %}
 
 {% block body %}
 
@@ -12,9 +12,7 @@
             <div class="row">
                 <div class=" col-12">
 
-                    <div class="gvp-vert-sp-3"></div>
-                    <h3><b>Wijzig {{ user.fullName }}</b></h3>
-                    <div class="gvp-vert-sp-3"></div>
+                    <h1 class="mt-3 mb-4">Wijzig {{ user.fullName }}</h1>
 
                     {{ include('user/_form_edit.html.twig', {'button_label': 'Wijzigen'}) }}
 
