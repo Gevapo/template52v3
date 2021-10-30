@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} | ADMIN nieuwe gebruiker{% endblock %}
+
+{% block body %}
+
+    {% include 'flash/flash.html.twig' %}
+
+    <div class="container">
+        <div class="bs-docs-section clearfix">
+
+            <div class="row">
+                <div class=" col-12">
+
+                    <h1 class="mt-3 mb-4">Nieuwe gebruiker</h1>
+
+                    {{ include('user/_form.html.twig') }}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

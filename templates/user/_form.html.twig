@@ -1,0 +1,63 @@
+{{ form_start(form, {'attr': {'spellcheck': 'false'}}) }}
+
+    <div class="row">
+        <div class="col-12">
+
+            <div class="row">
+                <div class="col-3">
+                    <a href="{{ path('user_index') }}" class="btn btn-block btn-outline-primary">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Terug naar de lijst</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="form-group col-8">
+
+            <div class="row">
+                <div class="form-group col-6">
+                    {{ form_label(form.voornaam) }}
+                    {{ form_widget(form.voornaam) }}
+                    {{ form_errors(form.voornaam) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-6">
+                    {{ form_label(form.achternaam) }}
+                    {{ form_widget(form.achternaam) }}
+                    {{ form_errors(form.achternaam) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-6">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-6">
+                    {{ form_label(form.password) }}
+                    {{ form_widget(form.password) }}
+                    {{ form_errors(form.password) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+                    <button class="btn btn-block btn-warning">
+                        <i class="fa fa-save" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ button_label|default('Bewaar') }}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{{ form_end(form) }}
+

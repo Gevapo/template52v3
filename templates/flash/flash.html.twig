@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="bs-docs-section clearfix">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+
+                {#                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}   New in version 5.1:The IS_IMPERSONATOR was introduced in Symfony 5.1. Use ROLE_PREVIOUS_ADMIN prior to Symfony 5.1. #}
+                {% if is_granted('IS_IMPERSONATOR') %}
+                    <div class="alert alert-warning">
+                        You are currently switched to this user.
+                        <a href="{{ path('homepage', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
+                    </div>
+                {% endif %}
+
+                {% for message in app.flashes('success') %}<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message | raw }}</div>{% endfor %}
+                {% for message in app.flashes('info') %}<div class="alert alert-dismissible alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message | raw }}</div>{% endfor %}
+                {% for message in app.flashes('warning') %}<div class="alert alert-dismissible alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message | raw }}</div>{% endfor %}
+                {% for message in app.flashes('error') %}<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message | raw }}</div>{% endfor %}
+                {% for message in app.flashes('verify_email_error') %}<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message | raw }}</div>{% endfor %}
+                {% for message in app.flashes('verify_password_error') %}<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message | raw }}</div>{% endfor %}
+                {% for message in app.flashes('verify_privacy_error') %}<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message | raw }}</div>{% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

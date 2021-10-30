@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,6 +36,22 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="wachtwoord mag niet leeg zijn!")
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $voornaam;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $achternaam;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -42,43 +59,12 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="datetime", name="created_at")
      */
-    protected $createdAt;
+    protected ?DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="datetime", name="updated_at")
      */
-    protected $updatedAt;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $firstName = '';
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="geert: wachtwoord mag niet leeg zijn!")
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $naam;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $aanspreektitel;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $telefoon;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Adres::class, mappedBy="user")
-     */
-    private $adressen;
+    protected ?DateTimeInterface $updatedAt;
 
     /**
      * User constructor.
@@ -87,7 +73,22 @@ class User implements UserInterface
     {
         $this->setCreatedAt(new DateTime());
         $this->setUpdatedAt(new DateTime());
-        $this->adressen = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setCreatedAtValue()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->setUpdatedAt(new DateTime());
     }
 
     public function getId(): ?int
@@ -117,6 +118,21 @@ class User implements UserInterface
         return (string) $this->email;
     }
 
+    public function getFullName(): string
+    {
+        if ($this->getAchternaam() && $this->getVoornaam()) {
+            return $this->getVoornaam() . " " . $this->getAchternaam();
+        }
+        if ($this->getVoornaam()) {
+            return $this->getVoornaam();
+        }
+        if ($this->getAchternaam()) {
+            return $this->getAchternaam();
+        }
+
+        return $this->getUsername();
+    }
+
     /**
      * @see UserInterface
      */
@@ -124,8 +140,10 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
+        if (!$roles) {
 //        $roles[] = 'ROLE_USER';
-        $roles[] = 'ROLE_VISITOR';
+         $roles[] = 'ROLE_VISITOR';
+        }
 
         return array_unique($roles);
     }
@@ -163,70 +181,6 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param mixed $createdAt
-     * @return User
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param mixed $updatedAt
-     * @return User
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function setCreatedAtValue()
-    {
-        $this->setCreatedAt(new DateTime());
-    }
-
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function setUpdatedAtValue()
-    {
-        $this->setUpdatedAt(new DateTime());
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -234,68 +188,66 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getNaam(): ?string
+    /**
+     * Get createdAt
+     * @return DateTimeInterface|null
+     */
+    public function getCreatedAt(): ?DateTimeInterface
     {
-        return $this->naam;
+        return $this->createdAt;
     }
 
-    public function setNaam(?string $naam): self
+    /**
+     * Set createdAt
+     * @param mixed $createdAt
+     * @return User
+     */
+    public function setCreatedAt($createdAt) :User
     {
-        $this->naam = $naam;
-
-        return $this;
-    }
-
-    public function getAanspreektitel(): ?string
-    {
-        return $this->aanspreektitel;
-    }
-
-    public function setAanspreektitel(string $aanspreektitel): self
-    {
-        $this->aanspreektitel = $aanspreektitel;
-
-        return $this;
-    }
-
-    public function getTelefoon(): ?string
-    {
-        return $this->telefoon;
-    }
-
-    public function setTelefoon(?string $telefoon): self
-    {
-        $this->telefoon = $telefoon;
-
+        $this->createdAt = $createdAt;
         return $this;
     }
 
     /**
-     * @return Collection|Adres[]
+     * Get updatedAt
+     * @return DateTimeInterface|null
      */
-    public function getAdressen(): Collection
+    public function getUpdatedAt(): ?DateTimeInterface
     {
-        return $this->adressen;
+        return $this->updatedAt;
     }
 
-    public function addAdressen(Adres $adressen): self
+    /**
+     * Set updatedAt
+     * @param mixed $updatedAt
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt) :User
     {
-        if (!$this->adressen->contains($adressen)) {
-            $this->adressen[] = $adressen;
-            $adressen->setUser($this);
-        }
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getVoornaam(): ?string
+    {
+        return $this->voornaam;
+    }
+
+    public function setVoornaam(?string $voornaam): self
+    {
+        $this->voornaam = $voornaam;
 
         return $this;
     }
 
-    public function removeAdressen(Adres $adressen): self
+    public function getAchternaam(): ?string
     {
-        if ($this->adressen->removeElement($adressen)) {
-            // set the owning side to null (unless already changed)
-            if ($adressen->getUser() === $this) {
-                $adressen->setUser(null);
-            }
-        }
+        return $this->achternaam;
+    }
+
+    public function setAchternaam(?string $achternaam): self
+    {
+        $this->achternaam = $achternaam;
 
         return $this;
     }

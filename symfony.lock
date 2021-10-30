@@ -370,6 +370,12 @@
             "./config/packages/security.yaml"
         ]
     },
+    "symfony/security-core": {
+        "version": "v5.2.3"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.2.3"
+    },
     "symfony/security-guard": {
         "version": "v5.2.3"
     },
