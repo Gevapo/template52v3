@@ -11,3 +11,5 @@ twig:
         decimals: 0
         decimal_point: ','
         thousands_separator: '.'
+    form_themes:
+        - bootstrap_4_layout.html.twig

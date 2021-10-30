@@ -1,0 +1,14 @@
+knp_snappy:
+#    pdf:
+#        enabled: true
+#        binary: '%env(WKHTMLTOPDF_PATH)%'
+#        options:
+#            # https://wkhtmltopdf.org/usage/wkhtmltopdf.txt
+#            orientation: Portrait                   # Landscape
+#            enable-local-file-access: true          # Allowed conversion of a local file to read in other local files.
+#            cache_dir: "%kernel.cache_dir%/snappy"
+#        image:
+#            enabled: true
+#            binary: '%env(WKHTMLTOIMAGE_PATH)%'
+#            options: [ ]
+#        temporary_folder: "%kernel.cache_dir%/snappy"
